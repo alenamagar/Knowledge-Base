@@ -212,3 +212,68 @@ Stopping firewall / flushing rules
 
 Clustering in csf
 -----------------
+
+If one of the server detects a brute force attack originating from a certain IP address, the others don’t need to wait before they too are besieged. They can pass this information along to others to preempt attacks instead. The servers will be sharing white and black lists.
+
+For us our master server will be 192.168.1.1, and
+slave server will be 192.168.1.2 , 192.168.1.3
+
+All the changes will be done in ``/etc/csf/csf.conf`` file
+
+In master server
+
+.. code-block:: console
+
+    CLUSTER_SENDTO = “192.168.1.2,192.168.1.3″
+    CLUSTER_RECVFROM = “192.168.1.2,192.168.1.3″
+    CLUSTER_MASTER = “192.168.1.1”
+    CLUSTER_PORT = “7777”
+    CLUSTER_KEY = “01234567890123456789012345678901234567890123456789012345”
+    CLUSTER_BLOCK = “1”
+    CLUSTER_CONFIG = “0”
+
+.. note::
+
+    should be greater than 20 digit and less than 56 digit and same on all servers.
+
+restart csf and lfd
+
+.. code-block:: console
+
+    #csf -r
+    #service lfd restart
+
+In slave servers
+
+.. code-block:: console
+
+    CLUSTER_SENDTO = “192.168.1.1″
+    CLUSTER_RECVFROM = “192.168.1.1″
+    CLUSTER_CONFIG = “1”
+    CLUSTER_MASTER = “192.168.1.1” (optional)
+
+restart csf and lfd
+
+.. code-block:: console
+
+    #csf -r
+    #service lfd restart
+
+
+
+When everything is done we need to verify if clustering is working or not
+
+In master server type following:
+
+.. code-block:: console
+    
+    #csf --cping
+
+output should be like below:
+
+.. code-block:: console
+
+    Sent to 192.168.1.2
+    Sent to 192.168.1.3
+
+

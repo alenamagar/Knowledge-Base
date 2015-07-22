@@ -270,6 +270,51 @@ insert following in <code class="docutils literal"><span class="pre">/etc/csf/cs
 </div>
 <div class="section" id="clustering-in-csf">
 <h2>Clustering in csf<a class="headerlink" href="#clustering-in-csf" title="Permalink to this headline">¶</a></h2>
+<p>If one of the server detects a brute force attack originating from a certain IP address, the others don’t need to wait before they too are besieged. They can pass this information along to others to preempt attacks instead. The servers will be sharing white and black lists.</p>
+<p>For us our master server will be 192.168.1.1, and
+slave server will be 192.168.1.2 , 192.168.1.3</p>
+<p>All the changes will be done in <code class="docutils literal"><span class="pre">/etc/csf/csf.conf</span></code> file</p>
+<p>In master server</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">CLUSTER_SENDTO = “192.168.1.2,192.168.1.3″</span>
+<span class="go">CLUSTER_RECVFROM = “192.168.1.2,192.168.1.3″</span>
+<span class="go">CLUSTER_MASTER = “192.168.1.1”</span>
+<span class="go">CLUSTER_PORT = “7777”</span>
+<span class="go">CLUSTER_KEY = “01234567890123456789012345678901234567890123456789012345”</span>
+<span class="go">CLUSTER_BLOCK = “1”</span>
+<span class="go">CLUSTER_CONFIG = “0”</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">should be greater than 20 digit and less than 56 digit and same on all servers.</p>
+</div>
+<p>restart csf and lfd</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span>csf -r
+<span class="gp">#</span>service lfd restart
+</pre></div>
+</div>
+<p>In slave servers</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">CLUSTER_SENDTO = “192.168.1.1″</span>
+<span class="go">CLUSTER_RECVFROM = “192.168.1.1″</span>
+<span class="go">CLUSTER_CONFIG = “1”</span>
+<span class="go">CLUSTER_MASTER = “192.168.1.1” (optional)</span>
+</pre></div>
+</div>
+<p>restart csf and lfd</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span>csf -r
+<span class="gp">#</span>service lfd restart
+</pre></div>
+</div>
+<p>When everything is done we need to verify if clustering is working or not</p>
+<p>In master server type following:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span>csf --cping
+</pre></div>
+</div>
+<p>output should be like below:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">Sent to 192.168.1.2</span>
+<span class="go">Sent to 192.168.1.3</span>
+</pre></div>
+</div>
 </div>
 </div>
 
