@@ -14,3 +14,4 @@ Contents:
    csf
    python
    exim
+   postfix
