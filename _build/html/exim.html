@@ -1,0 +1,319 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Exim CheatSheet &mdash; Knowledge Base 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Knowledge Base 1 documentation" href="index.html"/>
+        <link rel="prev" title="Python" href="python.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Knowledge Base
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="csf.html">ConfigServer Firewall (CSF)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csf.html#installation-of-csf">Installation of csf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csf.html#clustering-in-csf">Clustering in csf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#scan-cryptophp-in-centos-server">Scan cryptoPHP in centos server</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Exim CheatSheet</a></li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Knowledge Base</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Exim CheatSheet</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/exim.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="exim-cheatsheet">
+<h1>Exim CheatSheet<a class="headerlink" href="#exim-cheatsheet" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic simple">
+<li>To check the number of emails present in the queue:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -bpc
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>To check the emails present in the queue with the mail id and sender ID:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -bp
+<span class="gp">#</span> exim -bp <span class="p">|</span> less
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li>To view the header of a particular email using mail ID:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -MvH mail_id
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li>To view the body of a particular email using mail ID:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -Mvb mail_id
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li>To view a message&#8217;s logs:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -Mvl mail_id
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li>To trace path:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -d -bt user@domain.com
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li>To get sorted list of email sender in exim queue:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -bpr <span class="p">|</span> grep <span class="s2">&quot;&lt;&quot;</span> <span class="p">|</span> awk <span class="o">{</span><span class="s1">&#39;print $4&#39;</span><span class="o">}</span> <span class="p">|</span>cut -d <span class="s2">&quot;&lt;&quot;</span> -f <span class="m">2</span> <span class="p">|</span> cut -d <span class="s2">&quot;&gt;&quot;</span> -f <span class="m">1</span> <span class="p">|</span> sort -n <span class="p">|</span> uniq -c<span class="p">|</span> sort -n
+</pre></div>
+</div>
+<ol class="arabic simple" start="8">
+<li>To check the script that will originate spam mails:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> grep <span class="s2">&quot;cwd=&quot;</span> /var/log/exim_mainlog<span class="p">|</span>awk <span class="s1">&#39;{for(i=1;i&lt;=10;i++){print $i}}&#39;</span><span class="p">|</span>sort<span class="p">|</span> uniq -c<span class="p">|</span>grep cwd<span class="p">|</span>sort -n
+</pre></div>
+</div>
+<ol class="arabic simple" start="9">
+<li>If we need to find out exact spamming script. To do this, run following command:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> ps auxwwwe <span class="p">|</span> grep user <span class="p">|</span> grep --color<span class="o">=</span>always <span class="s2">&quot;/home/user/public_html/templates/&quot;</span> <span class="p">|</span> head
+</pre></div>
+</div>
+<ol class="arabic simple" start="10">
+<li>To delete the emails of a specific user:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> grep -lr <span class="s1">&#39;user@domain.com&#39;</span> /var/spool/exim/input/ <span class="p">|</span> sed -e <span class="s1">&#39;s/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g&#39;</span> <span class="p">|</span> xargs exim -Mrm
+<span class="gp">#</span> exim -bp <span class="p">|</span> grep <span class="s2">&quot;user_email-account&quot;</span> <span class="p">|</span> awk <span class="s1">&#39;{print $3}&#39;</span> <span class="p">|</span> xargs exim -Mrm
+</pre></div>
+</div>
+<ol class="arabic simple" start="11">
+<li>To delete Frozen emails from the email queue:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> grep -R -l <span class="s1">&#39;*** Frozen&#39;</span> /var/spool/exim/msglog/*<span class="p">|</span>cut -b26-<span class="p">|</span>xargs exim -Mrm
+<span class="gp">#</span> exim -bp<span class="p">|</span> grep frozen <span class="p">|</span> awk <span class="s1">&#39;{print $3}&#39;</span><span class="p">|</span> xargs exim -Mrm
+<span class="gp">#</span> exiqgrep -z -i <span class="p">|</span> xargs exim -Mrm
+</pre></div>
+</div>
+<ol class="arabic simple" start="12">
+<li>To delete Spam emails from the email queue:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> grep -R -l <span class="o">[</span>SPAM<span class="o">]</span> /var/spool/exim/msglog/*<span class="p">|</span>cut -b26-<span class="p">|</span>xargs exim -Mrm
+</pre></div>
+</div>
+<ol class="arabic simple" start="13">
+<li>To check the no. of frozen mails:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exiqgrep -z -c
+</pre></div>
+</div>
+<ol class="arabic simple" start="14">
+<li>To check exim logs:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> tail -f /var/log/exim_mainlog
+</pre></div>
+</div>
+<ol class="arabic simple" start="15">
+<li>Force delivery of one message:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -M mail_id
+</pre></div>
+</div>
+<ol class="arabic simple" start="16">
+<li>Force another queue run:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -qf
+</pre></div>
+</div>
+<ol class="arabic simple" start="17">
+<li>Force another queue run and attempt to flush frozen messages:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -qff
+</pre></div>
+</div>
+<ol class="arabic simple" start="18">
+<li>To check if there are frozen emails:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -bp <span class="p">|</span>awk <span class="s1">&#39;/fr[o]zen/ {print}&#39;</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="19">
+<li>To clear just one email:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exim -Mrm mail_id
+</pre></div>
+</div>
+<ol class="arabic simple" start="20">
+<li>Check the subjects of the emails:</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> exiqgrep -i <span class="p">|</span>awk <span class="s1">&#39;{ print &quot;exim -Mvh &quot;$1 }&#39;</span> <span class="p">|</span>sh <span class="p">|</span>grep -i Subject
+</pre></div>
+</div>
+<ol class="arabic simple" start="21">
+<li>Delete the email which content some string in the message body</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> grep -lr <span class="s1">&#39;photos to album&#39;</span> /var/spool/exim/input/ <span class="p">|</span> sed -e <span class="s1">&#39;s/^.*\/\([a-zA-Z0-9-]*\)-[DH]$/\1/g&#39;</span> <span class="p">|</span> xargs exim -Mrm
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="python.html" class="btn btn-neutral" title="Python" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Prakash Khadka.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

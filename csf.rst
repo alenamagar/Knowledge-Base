@@ -1,5 +1,5 @@
-CSF
-===
+ConfigServer Firewall (CSF)
+===========================
 
 Installation of csf
 --------------------

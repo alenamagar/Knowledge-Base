@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Search &mdash; Knowledge Base 1 documentation</title>
+  <title>Python &mdash; Knowledge Base 1 documentation</title>
   
 
   
@@ -30,7 +30,8 @@
   
 
   
-    <link rel="top" title="Knowledge Base 1 documentation" href="index.html"/> 
+    <link rel="top" title="Knowledge Base 1 documentation" href="index.html"/>
+        <link rel="prev" title="ConfigServer Firewall (CSF)" href="csf.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -55,7 +56,7 @@
 
         
 <div role="search">
-  <form id="rtd-search-form" class="wy-form" action="#" method="get">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
@@ -69,17 +70,16 @@
         
           
           
-              <ul>
+              <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="csf.html">ConfigServer Firewall (CSF)</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="csf.html#installation-of-csf">Installation of csf</a></li>
 <li class="toctree-l2"><a class="reference internal" href="csf.html#clustering-in-csf">Clustering in csf</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="python.html">Python</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="python.html#scan-cryptophp-in-centos-server">Scan cryptoPHP in centos server</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#scan-cryptophp-in-centos-server">Scan cryptoPHP in centos server</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="exim.html">Exim CheatSheet</a></li>
 </ul>
 
           
@@ -104,8 +104,12 @@
   <ul class="wy-breadcrumbs">
     <li><a href="index.html">Docs</a> &raquo;</li>
       
-    <li></li>
+    <li>Python</li>
       <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/python.txt" rel="nofollow"> View page source</a>
+          
         
       </li>
   </ul>
@@ -113,22 +117,46 @@
 </div>
           <div role="main" class="document">
             
-  <noscript>
-  <div id="fallback" class="admonition warning">
-    <p class="last">
-      Please activate JavaScript to enable the search
-      functionality.
-    </p>
-  </div>
-  </noscript>
+  <div class="section" id="python">
+<h1>Python<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="scan-cryptophp-in-centos-server">
+<h2>Scan cryptoPHP in centos server<a class="headerlink" href="#scan-cryptophp-in-centos-server" title="Permalink to this headline">¶</a></h2>
+<p>Following script will search cryptoPHP infected themes/plugins based on <em>social.png</em> file.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">To run this script you need to first run <em>updatedb</em> command.</p>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span>!/usr/bin/env python
 
-  
-  <div id="search-results">
-  
-  </div>
+<span class="go">import os</span>
+
+<span class="go">os.system(&quot;mkdir -p /root/audit/cryptoPHP/&quot;)</span>
+<span class="go">os.system(&quot;locate social.png &gt; /root/audit/cryptoPHP/list.txt&quot;)</span>
+<span class="go">os.system(&quot;xargs md5sum &lt; /root/audit/cryptoPHP/list.txt &gt; /root/audit/cryptoPHP/possible-infected.txt&quot;)</span>
+
+<span class="go">CRYPTOPHP_MD5SUM = [&#39;048a54b0f740991a763c040f7dd67d2b&#39;, &#39;d3c9f64b8d1675f02aa833d83a5c6342&#39;, &#39;3a2ca46ec07240b78097acc2965b352e&#39;, &#39;4c641297fe142aea3fd1117cf80c2c8b&#39;, &#39;e27122ba785627fca79b4a19c8eea38b&#39;, &#39;2640b3613223dbb3606d59aa8fc0465f&#39;, &#39;f5d6f783d39336ee30e17e1bc7f8c2ef&#39;,&#39;b75c82e68870115b45f6892bd23e72cf&#39;, &#39;29576640791ac19308d3cd36fb3ba17b&#39;, &#39;b4764159901cbb6da443e789b775b928&#39;, &#39;1ed6cc30f83ac867114f911892a01a2d&#39;, &#39;325fc9442ae66d6ad8e5e71bb1129894&#39;,&#39;5b1d09f70dcfe7a3d687aaef136c18a1&#39;, &#39;20671fafa76b2d2f4ba0d2690e3e07dc&#39;, &#39;3249b669bb11f49a76850660411720e2&#39;, &#39;ffd91f505d56189819352093268216ad&#39;, &#39;b4b2c193f8af66b093ce1f1d284406a5&#39;, &#39;d11e6a54fba32fee9c69aabe9515e69d&#39;, &#39;f30dca4a681703178b4d1294425ae5f6&#39;]</span>
+
+<span class="go">newfile = open(&quot;cryptoPHP-infected.txt&quot;, &quot;w&quot;)</span>
+
+<span class="go">with open(&#39;possible-infected.txt&#39;) as possible:</span>
+<span class="go">        for line in possible:</span>
+<span class="go">                if any(crypto in line for crypto in CRYPTOPHP_MD5SUM):</span>
+<span class="go">                        newfile.write(line)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
 
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="csf.html" class="btn btn-neutral" title="ConfigServer Firewall (CSF)" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -165,7 +193,6 @@
       <script type="text/javascript" src="_static/jquery.js"></script>
       <script type="text/javascript" src="_static/underscore.js"></script>
       <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="_static/searchtools.js"></script>
 
   
 
@@ -181,14 +208,7 @@
           SphinxRtdTheme.StickyNav.enable();
       });
   </script>
-  
-  <script type="text/javascript">
-    jQuery(function() { Search.loadIndex("searchindex.js"); });
-  </script>
-  
-  <script type="text/javascript" id="searchindexloader"></script>
    
-
 
 </body>
 </html>
