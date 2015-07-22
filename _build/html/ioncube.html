@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>How to install ioncube for WHMCS &mdash; Knowledge Base 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Knowledge Base 1 documentation" href="index.html"/>
+        <link rel="prev" title="Installation of LAMP on centos 6.6" href="LAMP.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Knowledge Base
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="csf.html">ConfigServer Firewall (CSF)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csf.html#installation-of-csf">Installation of csf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csf.html#clustering-in-csf">Clustering in csf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#scan-cryptophp-in-centos-server">Scan cryptoPHP in centos server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exim.html">Exim CheatSheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfix.html">Postfix CheatSheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="LAMP.html">Installation of LAMP on centos 6.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="LAMP.html#install-wget">Install wget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LAMP.html#install-apache">Install Apache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LAMP.html#install-mysql-5-6">Install MySQL 5.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LAMP.html#install-php-5-6">Install PHP 5.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="LAMP.html#php-modules">PHP Modules</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">How to install ioncube for WHMCS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#troubleshooting">TroubleShooting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#error-1">Error 1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#error-2">Error 2</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Knowledge Base</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>How to install ioncube for WHMCS</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/ioncube.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="how-to-install-ioncube-for-whmcs">
+<h1>How to install ioncube for WHMCS<a class="headerlink" href="#how-to-install-ioncube-for-whmcs" title="Permalink to this headline">¶</a></h1>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd</span>
+<span class="gp">$</span><span class="nb"> </span>mkdir audit
+<span class="gp">$</span> <span class="nb">cd </span>audit
+</pre></div>
+</div>
+<p>Download the latest ioncube loader from <a class="reference external" href="http://www.ioncube.com/loaders.php">Here</a></p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz
+</pre></div>
+</div>
+<p>Extract it</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> tar -xzvf ioncube_loaders_lin_x86-64.tar.gz
+</pre></div>
+</div>
+<p>Copy the loader-wizard.php to /var/www/html</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo cp ioncube/loader-wizard.php /var/www/html/
+</pre></div>
+</div>
+<p>Copy ioncube module according to your php version$  to /usr/lib64/php/modules</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo cp ioncube_loader_lin_5.6.so /usr/lib64/php/modules
+</pre></div>
+</div>
+<p>Make a file inside /etc/php.d/ioncube.ini and paste below :</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">zend_extension = /usr/lib64/php/modules/ioncube_loader_lin_5.6.so</span>
+</pre></div>
+</div>
+<p>Now restart the httpd</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo service httpd restart
+</pre></div>
+</div>
+<p>Then, remove these files</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo rm /var/www/html/loader-wizard.php
+<span class="gp">$</span> sudo rm -rf audit/ioncube*
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h1>TroubleShooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="error-1">
+<h2>Error 1<a class="headerlink" href="#error-1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Site error: the file /var/www/html/whmcs/install/install.php requires the ionCube PHP Loader ioncube_loader_lin_5.6.so to be installed by the site administrator.</p>
+</div>
+<p>If you get errors like above, look at error_log, for me above error tells me the error wwas related to  permission denied. If you have same error in err-r_log then give the proper permission to module or easy way out is move .so file elsewhere like below:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> <span class="nb">cd</span> /usr/share
+<span class="gp">$</span> mkdir ioncube
+<span class="gp">$</span> mv /usr/lib64/php/modules/ioncube_loader_lin_5.6.so /usr/share/ioncube
+</pre></div>
+</div>
+<p>Also make changes in /etc/php.ini file</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">zend_extension = /usr/share/ioncube/ioncube_loader_lin_5.6.so</span>
+</pre></div>
+</div>
+<p>restart the apache</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo /etc/init.d/httpd restart
+</pre></div>
+</div>
+</div>
+<div class="section" id="error-2">
+<h2>Error 2<a class="headerlink" href="#error-2" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last"># php -v
+PHP Fatal error: [ionCube Loader] The Loader must appear as the first entry in the php.ini file in Unknown on line 0</p>
+</div>
+<p>then it may be because there are two two defination for same module. Try to find the <code class="docutils literal"><span class="pre">.ini</span></code> file and inside it search for <code class="docutils literal"><span class="pre">zend_extension</span></code></p>
+<p>If you find two entries, then remove one and restart apache</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="LAMP.html" class="btn btn-neutral" title="Installation of LAMP on centos 6.6" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Prakash Khadka.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

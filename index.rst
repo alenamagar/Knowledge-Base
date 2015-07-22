@@ -15,3 +15,5 @@ Contents:
    python
    exim
    postfix
+   LAMP
+   ioncube

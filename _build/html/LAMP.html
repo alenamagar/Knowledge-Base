@@ -1,0 +1,303 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation of LAMP on centos 6.6 &mdash; Knowledge Base 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Knowledge Base 1 documentation" href="index.html"/>
+        <link rel="prev" title="Postfix CheatSheet" href="postfix.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Knowledge Base
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="csf.html">ConfigServer Firewall (CSF)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="csf.html#installation-of-csf">Installation of csf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="csf.html#clustering-in-csf">Clustering in csf</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="python.html#scan-cryptophp-in-centos-server">Scan cryptoPHP in centos server</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="exim.html">Exim CheatSheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="postfix.html">Postfix CheatSheet</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="">Installation of LAMP on centos 6.6</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#install-wget">Install wget</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-apache">Install Apache</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-mysql-5-6">Install MySQL 5.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#install-php-5-6">Install PHP 5.6</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#php-modules">PHP Modules</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Knowledge Base</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>Installation of LAMP on centos 6.6</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/LAMP.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="installation-of-lamp-on-centos-6-6">
+<h1>Installation of LAMP on centos 6.6<a class="headerlink" href="#installation-of-lamp-on-centos-6-6" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="install-wget">
+<h2>Install wget<a class="headerlink" href="#install-wget" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo yum install wget
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-apache">
+<h2>Install Apache<a class="headerlink" href="#install-apache" title="Permalink to this headline">¶</a></h2>
+<p>To install apache,</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo yum install httpd
+</pre></div>
+</div>
+<p>Once it installs, you can start apache running on your VPS:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo service httpd start
+<span class="gp">$</span> sudo chkconfig httpd on
+</pre></div>
+</div>
+<p>Edit the <code class="docutils literal"><span class="pre">#ServerName</span> <span class="pre">www.example.com:80</span></code> and put your hostname instead of <code class="docutils literal"><span class="pre">www.example.com</span></code> in <code class="docutils literal"><span class="pre">httpd.conf</span></code> file</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo vi /etc/httpd/conf/httpd.conf
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-mysql-5-6">
+<h2>Install MySQL 5.6<a class="headerlink" href="#install-mysql-5-6" title="Permalink to this headline">¶</a></h2>
+<p>Download the yum repo rpm package.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> wget http://repo.mysql.com/mysql-community-release-el6-5.noarch.rpm
+</pre></div>
+</div>
+<p>Install the downloaded rpm package.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> rpm -ivh mysql-community-release-el6-5.noarch.rpm
+</pre></div>
+</div>
+<p>Install the mysql server</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> yum install mysql-server
+</pre></div>
+</div>
+<p>After installation start the mysql server</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> /etc/init.d/mysqld start
+<span class="gp">$</span> sudo chkconfig mysqld on
+</pre></div>
+</div>
+<p>MySQL server is just installed it has blank mysql root password. To reset the mysql root password.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo mysql_secure_installation
+</pre></div>
+</div>
+</div>
+<div class="section" id="install-php-5-6">
+<h2>Install PHP 5.6<a class="headerlink" href="#install-php-5-6" title="Permalink to this headline">¶</a></h2>
+<p>Download the repo rpm package</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo rpm -Uvh https://mirror.webtatic.com/yum/el6/latest.rpm
+</pre></div>
+</div>
+<p>Install the php with the required extension</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo yum install -y php56w php56w-opcache php56w-xml php56w-mcrypt php56w-gd php56w-devel php56w-mysql php56w-intl php56w-mbstring
+</pre></div>
+</div>
+<p>Restart Apache:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo service httpd restart
+</pre></div>
+</div>
+<p>To verify that PHP 5.6 is installed:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> php -v
+</pre></div>
+</div>
+<p>For testing php test page</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo vi /var/www/html/info.php
+</pre></div>
+</div>
+<p>Add in the following line:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">&lt;?php</span>
+<span class="go"> phpinfo();</span>
+<span class="go">?&gt;</span>
+</pre></div>
+</div>
+<p>Then save it and restart apache.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo service httpd restart
+</pre></div>
+</div>
+</div>
+<div class="section" id="php-modules">
+<h2>PHP Modules<a class="headerlink" href="#php-modules" title="Permalink to this headline">¶</a></h2>
+<p>PHP also has a variety of useful libraries and modules that you can add onto your server. You can see the libraries that are available by typing:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo yum search php-
+</pre></div>
+</div>
+<p>To see more details about what each module does, type the following command into terminal, replacing the name of the module with whatever library you want to learn about.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo yum info name of the module
+</pre></div>
+</div>
+<p>Once you decide to install the module, type:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo yum install name of the module
+</pre></div>
+</div>
+<p>You can install multiple libraries at once by separating the name of each module with a space.</p>
+<p>Now LAMP stack is installed!</p>
+<p>Allow port 80</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">$</span> sudo vi /etc/sysconfig/iptables
+</pre></div>
+</div>
+<p>and add this line</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">-A INPUT -m state --state NEW -m tcp -p tcp --dport 80 -j ACCEPT</span>
+</pre></div>
+</div>
+<p>Visit site at : <cite>http://ip-address</cite></p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="postfix.html" class="btn btn-neutral" title="Postfix CheatSheet" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Prakash Khadka.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
