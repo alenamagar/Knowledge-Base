@@ -1,0 +1,340 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>CSF &mdash; Knowledge Base 1 documentation</title>
+  
+
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="Knowledge Base 1 documentation" href="index.html"/>
+        <link rel="prev" title="Welcome to Knowledge Base’s documentation!" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+
+        
+          <a href="index.html" class="icon icon-home"> Knowledge Base
+        
+
+        
+        </a>
+
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+        
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="">CSF</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#installation-of-csf">Installation of csf</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#clustering-in-csf">Clustering in csf</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">Knowledge Base</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+      
+    <li>CSF</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/csf.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <div class="section" id="csf">
+<h1>CSF<a class="headerlink" href="#csf" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="installation-of-csf">
+<h2>Installation of csf<a class="headerlink" href="#installation-of-csf" title="Permalink to this headline">¶</a></h2>
+<p>If there is any other firewall eg: APF, cphulk,etc then first disable it. No need to disable iptables.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> mkdir /root/audit
+<span class="gp">#</span> <span class="nb">cd</span> /root/audit
+<span class="gp">#</span> wget http://www.configserver.com/free/csf.tgz
+<span class="gp">#</span> tar -xzvf csf.tgz
+<span class="gp">#</span> <span class="nb">cd </span>csf
+<span class="gp">#</span> sh install.sh
+</pre></div>
+</div>
+<p>To whitelist the ip in csf, add ip in following file</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> vi /etc/csf/csf.allow
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">lfd can still block above whitelisted ip. Therefore, to tell lfd not to block ip, add ip in below file.</p>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> vi /etc/csf/csf.ignore
+</pre></div>
+</div>
+<p>Before doing anything to main configuration file, take a backup of it.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> cp /etc/csf/csf.conf /etc/csf/csf.conf_BAK
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After installation of csf, lfd will not start. Since csf, is in TESTING mode, we have to manually disable it.
+If it is not changed then you may get email like &#8220;lfd start failed&#8221;. To disable TESTING mode go to /etc/csf/csf.conf
+and change TESTING = &#8220;1&#8221; to TESTING = &#8220;0&#8221;.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Allow 5666 port for nagios monitoring
+Allow 3306 port for mysql
+Allow 30000:50000 for ftp in passive mode (go to ftp setting, allow passive mode and restart the ftp service)</p>
+</div>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> vi /etc/csf/csf.conf
+</pre></div>
+</div>
+<div class="highlight-bash"><div class="highlight"><pre><span class="nv">TCP_IN</span> <span class="o">=</span> <span class="s2">&quot;20,21,22,25,53,80,110,143,443,465,587,993,995,2077,2078,2082,2083,2086,2087,2095,2096,2525,5666,3306,30000:35000&quot;</span>
+</pre></div>
+</div>
+<p>To change the email address where you get the notification from csf. Insert your email address in following inside /etc/csf/csf.conf file</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">LF_ALERT_TO = &quot;&quot;</span>
+</pre></div>
+</div>
+<p>If you want to change the email address from then insert some email address in following inside /etc/csf/csf.conf</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">LF_ALERT_FROM = &quot;&quot;</span>
+</pre></div>
+</div>
+<p>Change Virtual Memory Size from 200 to 300 in /etc/csf/csf.conf</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">PT_USERMEM = &quot;300&quot;</span>
+</pre></div>
+</div>
+<p>Add following process so that csf will ignore it</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> vi /etc/csf/csf.pignore
+<span class="go">cmd:spamd child (remove &quot;#&quot; sign)</span>
+<span class="go">exe:/usr/local/cpanel/3rdparty/php/54/bin/php-cgi (Add this somewhere in file at the end of exe:...)</span>
+</pre></div>
+</div>
+<p>After doing all changes you need, restart the services</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -r
+<span class="gp">#</span> service lfd restart
+</pre></div>
+</div>
+<p>To search for blocked-ip</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -g <span class="o">[</span>ip-address<span class="o">]</span>
+</pre></div>
+</div>
+<p>To allow ip address</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -a <span class="o">[</span>ip-address<span class="o">]</span>
+</pre></div>
+</div>
+<p>To block ip address</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -d <span class="o">[</span>ip-address<span class="o">]</span>
+</pre></div>
+</div>
+<p>If you do not wish to get permanent block email notification then change 1 to 0 in following /etc/csf/csf.conf file</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">LF_EMAIL_ALERT = &quot;0&quot;</span>
+</pre></div>
+</div>
+<p>If you want to remove csf and lfd service:</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> <span class="nb">cd</span> /etc/csf
+<span class="gp">#</span> sh uninstall.sh
+</pre></div>
+</div>
+<p>How to enable passive mode?</p>
+<ol class="arabic simple">
+<li>Add Passive Port range 30000-35000 to your Pureftp or Proftp configuration file</li>
+</ol>
+<p>(i) Pureftpd
+open <code class="docutils literal"><span class="pre">/etc/pure-ftpd.conf</span></code>, and this line</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">PassivePortRange    30000 35000</span>
+</pre></div>
+</div>
+<p>(ii) ProFTP
+Open <code class="docutils literal"><span class="pre">/etc/proftpd.conf</span></code>, and add this line</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">PassivePorts    30000 35000</span>
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li>Open the ports from 30000 – 35000 in your CSF firewall configuration file under TCP_IN</li>
+</ol>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> vi /etc/csf/csf.conf
+</pre></div>
+</div>
+<p># Allow incoming TCP ports in /etc/csf/csf.conf file</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">TCP_IN = &quot;20,21,22,25,53,80,110,30000:35000&quot;</span>
+</pre></div>
+</div>
+<p>Then restart firewall and ftp server.</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -r
+<span class="gp">#</span> service pureftpd restart <span class="o">(</span>or<span class="o">)</span>
+<span class="gp">#</span> service proftpd restart
+</pre></div>
+</div>
+<p>Whitelisting the running process</p>
+<p>If you are receiving a number of <code class="docutils literal"><span class="pre">&quot;suspicious</span> <span class="pre">process&quot;</span></code> emails that mention the <code class="docutils literal"><span class="pre">&quot;spamd</span> <span class="pre">child&quot;</span></code> process CSF may identify it as a <code class="docutils literal"><span class="pre">&quot;suspicious</span> <span class="pre">process&quot;</span></code>.  This can be avoided by adding the exclusion back into CSF.  Here&#8217;s how:</p>
+<p>Go to terminal and add binary full path ( /usr/local/cpanel/3rdparty/perl/514/bin/spamd) of the process to these two files</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">/etc/csf/csf.fignore</span>
+<span class="go">/etc/csf/csf.pignore</span>
+</pre></div>
+</div>
+<p>To allow only ip to access port 22.</p>
+<p>remove port 22 in <code class="docutils literal"><span class="pre">/etc/csf/csf.conf</span></code> under TCP_IN
+insert following in <code class="docutils literal"><span class="pre">/etc/csf/csf.allow</span></code></p>
+<div class="highlight-console"><div class="highlight"><pre><span class="go">tcp|in|d=22|d=ip-address # allow port 22 to only ip-address</span>
+</pre></div>
+</div>
+<p>Restart csf and lfd</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -r
+<span class="gp">#</span> service lfd restart
+</pre></div>
+</div>
+<p>enabling the firewall</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -e
+</pre></div>
+</div>
+<p>Disabling the firewall</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -x
+</pre></div>
+</div>
+<p>Starting firewall / applying rules</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -s
+</pre></div>
+</div>
+<p>Stopping firewall / flushing rules</p>
+<div class="highlight-console"><div class="highlight"><pre><span class="gp">#</span> csf -f
+</pre></div>
+</div>
+</div>
+<div class="section" id="clustering-in-csf">
+<h2>Clustering in csf<a class="headerlink" href="#clustering-in-csf" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="Welcome to Knowledge Base’s documentation!" accesskey="p"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2015, Prakash Khadka.
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
