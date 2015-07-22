@@ -52,5 +52,5 @@ Usage:
 
 .. code-block:: console
 
-    ./scriptname.pl *username*
-    ./scriptname.pl *domainname*
+    ./scriptname.pl username
+    ./scriptname.pl domainname
